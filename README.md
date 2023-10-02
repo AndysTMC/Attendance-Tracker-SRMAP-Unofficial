@@ -1,4 +1,4 @@
-**<h1><img src="https://github.com/AndysTMC/attendance_tracker/blob/85411419b48f16e479a321c159f1c981dd841901/app/android/app/src/main/res/mipmap-hdpi/ic_launcher_round.png" style="width:38px; height:38px;translate: -5px 7px;">Attendance Tracker</h1>**
+**<h1><img src="https://github.com/AndysTMC/Attendance-Tracker-SRMAP/blob/75cb3a0cbe25c4a8ea972830f38d5fa2c5566346/app/android/app/src/main/res/mipmap-hdpi/ic_launcher.png" style="width:38px; height:38px;translate: -5px 7px;">Attendance Tracker</h1>**
 <p>https://github.com/AndysTMC/AttendanceTracker</p>
 <h2>Description</h2>
 </p>The Attendance Tracker is a specialized tool created for educational purposes, specifically tailored to streamline attendance monitoring for students. It's designed for those with knowledge of GitHub repository usage and offers a unique opportunity for student developers to gain practical experience with a range of technologies.
@@ -24,7 +24,8 @@ Follow these steps to install and set up the Attendance Tracker project on your 
 <ul>
   <li><b>Clone the Repository</b>: Start by cloning the project's repository to your local machine. Open your terminal or command prompt and execute the following command, replacing <repository_url> with the actual URL of your project's repository:<br><code>git clone https://github.com/AndysTMC/AttendanceTracker.git</code></li>
   <li><b>Navigate to the Project Directory</b>: Change your working directory to the project's root folder:<br><code>cd AttendanceTracker</code></li>
-  <li><b>Install Python Packages (and LFS files)</b>: Navigate to the server folder of the project and install the required Python packages by running 'install_requirements.bat' file</li>
+  <li><strong>Installing the Tesseract Library</strong>: Download and install the <a href="www.google.com">Tesseract Executable</a>. During installation, specify the path to the <em>path/to/Attendance-Tracker-SRMAP/server/lib/</em> folder.</li>
+  <li><b>Install Python Packages</b>: Navigate to the server folder of the project and install the required Python packages by running 'install_requirements.bat' file</li>
   <li><b>Install Flutter Dependencies and Build Application(for developers)</b>: Navigate to the app folder:<br><code>cd Path/to/attendance_tracker/app</code><br>Install the flutter dependencies<br><code>flutter pub get</code><br>(If you're building application for android) Connect your mobile device to your PC and enable USB Debugging. Once connected, you can build the flutter application in two ways <ul><li>Click the 'RUN' button in your integrated development environment (IDE)</li><li>Alternatively, use the command:</li><code>flutter run</code></ul>
 <br>NOTE: It is advisable to prioritize either the Android or Windows platform at this time, as the application has not undergone testing on alternative platforms.</li>
   <li><b>Install Android Platform Application(for students)</b>: Install the <a href="www.google.com">Attendance Tracker Android Application</a></li>
