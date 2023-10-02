@@ -1,4 +1,4 @@
-**<h1><img src="https://github.com/AndysTMC/attendance_tracker/blob/85411419b48f16e479a321c159f1c981dd841901/app/android/app/src/main/res/mipmap-hdpi/ic_launcher_round.png" style="width:38px; height:38px;translate: -5px 7px;">Attendance Tracker</h1>**
+**<h1><img src="https://github.com/AndysTMC/Attendance-Tracker-SRMAP/blob/75cb3a0cbe25c4a8ea972830f38d5fa2c5566346/app/android/app/src/main/res/mipmap-hdpi/ic_launcher.png" style="width:38px; height:38px;translate: -5px 7px;">Attendance Tracker</h1>**
 <p>https://github.com/AndysTMC/AttendanceTracker</p>
 <h2>Description</h2>
 </p>The Attendance Tracker is a specialized tool created for educational purposes, specifically tailored to streamline attendance monitoring for students. It's designed for those with knowledge of GitHub repository usage and offers a unique opportunity for student developers to gain practical experience with a range of technologies.
