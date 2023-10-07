@@ -57,7 +57,6 @@ class _AuthPageState extends State<AuthPage> {
     String? ip = '';
     if (Platform.isAndroid) {
       ip = await getIPAddress(context);
-      print("$ip is IP Address");
       if (ip == '-1') {
         return;
       }
@@ -88,6 +87,7 @@ class _AuthPageState extends State<AuthPage> {
             var scheduleSubjects =
             data['timetable']['time_schedule']['schedule_subjects'];
             var subjectsInfo = data['timetable']['subjects_info'];
+            await DBHelper.insertHolidaysData(data['holidays']);
             await DBHelper.insertMiscData(
                 data['name'],
                 _regIdController.value.text,
@@ -123,7 +123,7 @@ class _AuthPageState extends State<AuthPage> {
             ),
           );
         }
-      } on Exception {
+      } on Exception catch (e) {
         setState(() {
           _isLoading = false;
         });

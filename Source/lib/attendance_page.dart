@@ -52,6 +52,10 @@ class _AttendancePageState extends State<AttendancePage> {
   TimetableData? upcomingClass;
   bool isLoading = true;
   List<String> days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
+  late String today;
+  //holidays
+  late var holidays;
+  late String selectedDay;
   late List<Map<String, dynamic>> miscData;
   @override
   void initState() {
@@ -60,6 +64,9 @@ class _AttendancePageState extends State<AttendancePage> {
     initializeAll();
   }
   void initializeAll() async{
+    today = DateTime.now().toLocal().weekday == 1 ? 'Monday' : DateTime.now().toLocal().weekday == 2 ? 'Tuesday' : DateTime.now().toLocal().weekday == 3 ? 'Wednesday' : DateTime.now().toLocal().weekday == 4 ? 'Thursday' : DateTime.now().toLocal().weekday == 5 ? 'Friday' : DateTime.now().toLocal().weekday == 6 ? 'Saturday' : 'Sunday';
+    selectedDay = today;
+    holidays = await DBHelper.queryData('holidays');
     await _setMiscData();
     await fetchNameFromDatabase();
     await fetchAttendanceDataFromDatabase();
@@ -73,6 +80,7 @@ class _AttendancePageState extends State<AttendancePage> {
     setState(() {
       _currentIndex = index;
       if (index == 2) {
+        selectedDay = today;
         _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
           setState(() {
             _updateClassStatus();
@@ -193,13 +201,14 @@ class _AttendancePageState extends State<AttendancePage> {
         }
       } catch (e) {
         print('Error: $e');
-        if(Platform.isAndroid == false)
-        ScaffoldMessenger.of(context).showSnackBar(
+        if(Platform.isAndroid == false) {
+          ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
             content: Text('No internet connection (or Invalid Server QR)'),
             duration: Duration(seconds: 1),
           ),
         );
+        }
       }
     }
     await fetchAttendanceDataFromDatabase();
@@ -590,7 +599,6 @@ class _AttendancePageState extends State<AttendancePage> {
                           // Add a divider line for better separation
                           ...attendanceDataList.map((data) {
                             bool isSafe = data.percentage >= 75.0;
-
                             return Padding(
                               padding:
                               const EdgeInsets.symmetric(vertical: 8.0),
@@ -640,12 +648,22 @@ class _AttendancePageState extends State<AttendancePage> {
                               ),
                             );
                           }).toList(),
+                          const SizedBox(height: 35),
+                          const Text('*Safe means that you are above 75% attendance', style: TextStyle(fontSize: 12, fontStyle: FontStyle.italic, color: Colors.grey), textAlign: TextAlign.center),
+                          const Text('*A session has a duration of 30 minutes', style: TextStyle(fontSize: 12, fontStyle: FontStyle.italic, color: Colors.grey), textAlign: TextAlign.center),
+                          const Text('*Leaves Applicable represents the number of sessions you can miss without falling below 75%', style: TextStyle(fontSize: 12, fontStyle: FontStyle.italic, color: Colors.grey), textAlign: TextAlign.center),
+                          const Text('*Must Attend represents the number of sessions you must attend to reach 75%', style: TextStyle(fontSize: 12, fontStyle: FontStyle.italic, color: Colors.grey), textAlign: TextAlign.center),
+                          const Text('*N/A means that you have already fallen below 75% and cannot reach it', style: TextStyle(fontSize: 12, fontStyle: FontStyle.italic, color: Colors.grey), textAlign: TextAlign.center),
                         ],
                       ),
                     ),
+
                   ),
                 )
+                // At bottom write some notes on leaves applicable and must attend
+
               else if (_currentIndex == 2)
+
                 // Add the new section here
                   Column(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -718,9 +736,23 @@ class _AttendancePageState extends State<AttendancePage> {
                               ],
                             ),
                           ),
-                        )
-
-                      // ... Implement the timetable table here ...
+                        ),
+                      // Implement the time table here
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          // make the below widgets width of same size and cover the entire width of the screen
+                          children: [
+                            DayButton(dayName: 'Monday', isSelected: selectedDay == 'Monday', onPressed: updateSelectedDay),
+                            DayButton(dayName: 'Tuesday', isSelected: selectedDay == 'Tuesday', onPressed: updateSelectedDay),
+                            DayButton(dayName: 'Wednesday', isSelected: selectedDay == 'Wednesday', onPressed: updateSelectedDay),
+                            DayButton(dayName: 'Thursday', isSelected: selectedDay == 'Thursday', onPressed: updateSelectedDay),
+                            DayButton(dayName: 'Friday', isSelected: selectedDay == 'Friday', onPressed: updateSelectedDay),
+                          ],
+                        ),
+                      ),
+                      showClassesScheduledForDay(selectedDay)
                     ],
                   ),
             if (attendanceDataList.isEmpty && isLoading)
@@ -756,11 +788,121 @@ class _AttendancePageState extends State<AttendancePage> {
     );
   }
 
-  void _updateClassStatus() {
+  void updateSelectedDay(String day) {
+    setState(() {
+      selectedDay = day;
+    });
+  }
+
+
+  Widget showClassesScheduledForDay(String dayName) {
+    int dayNumber = 1;
+    switch (dayName.toLowerCase()) {
+      case 'monday':
+        dayNumber = DateTime.monday;
+        break;
+      case 'tuesday':
+        dayNumber = DateTime.tuesday;
+        break;
+      case 'wednesday':
+        dayNumber = DateTime.wednesday;
+        break;
+      case 'thursday':
+        dayNumber = DateTime.thursday;
+        break;
+      case 'friday':
+        dayNumber = DateTime.friday;
+        break;
+      case 'saturday':
+        dayNumber = DateTime.saturday;
+        break;
+      case 'sunday':
+        dayNumber = DateTime.sunday;
+        break;
+      default:
+      // Handle an invalid day name
+        break;
+    }
+    DateTime now = DateTime.now();
+    for (var holiday in holidays) {
+      final holidayName = holiday['name'] ?? 'a holiday';
+      if (holiday['date'] == DateFormat('yyyy-MM-dd').format(now)) {
+        return Center(
+          child: Text(
+            "It's $holidayName",
+            style: const TextStyle(fontSize: 20, color: Colors.black54, fontWeight: FontWeight.w500),
+            textAlign: TextAlign.center,
+          ),
+        );
+      }
+    }
+    if (dayName == 'Saturday' || dayName == 'Sunday') {
+      return Container(
+          child: const Text('..NOTHING TO SHOW HERE..', style: TextStyle(fontSize: 20, color: Colors.black54, fontWeight: FontWeight.w500), textAlign: TextAlign.center)
+        // place it at the center of the screen along horizontally and vertically
+      );
+    }
+    if (dayName != today) {
+      if (timetableDataList.isNotEmpty) {
+        return Column(
+          children: List.generate(
+            timetableDataList[dayNumber - 1].length,
+                (i) =>
+                ClassItem(
+                  className: timetableDataList[dayNumber - 1][i].subject,
+                  classTime:
+                  '${DateFormat('hh:mm a').format(
+                      timetableDataList[dayNumber - 1][i]
+                          .startTime)} - ${DateFormat('hh:mm a').format(
+                      timetableDataList[dayNumber - 1][i].endTime)}',
+                  location: timetableDataList[1][i].sessionRoom,
+                ),
+          ),
+        );
+      } else {
+        return Container(
+            child: const Text('..NOTHING TO SHOW HERE..', style: TextStyle(fontSize: 20, color: Colors.black54, fontWeight: FontWeight.w500), textAlign: TextAlign.center)
+          // place it at the center of the screen along horizontally and vertically
+        );
+      }
+    } else {
+      DateTime currentTime = DateTime.now();
+      final filteredTimetableDataList = timetableDataList[dayNumber - 1]
+          .where((classData) =>
+          classData.startTime.isAfter(currentTime));
+      if (filteredTimetableDataList.isNotEmpty) {
+        return Column(
+          children: filteredTimetableDataList.map((classData) =>
+              ClassItem(
+                className: classData.subject,
+                classTime:
+                '${DateFormat('hh:mm a').format(
+                    classData.startTime)} - ${DateFormat('hh:mm a').format(
+                    classData.endTime)}',
+                location: classData.sessionRoom,
+              )).toList(),
+        );
+      } else {
+        return Container(
+          child: const Text('..NOTHING TO SHOW HERE..', style: TextStyle(fontSize: 20, color: Colors.black54, fontWeight: FontWeight.w500), textAlign: TextAlign.center)
+          // place it at the center of the screen along horizontally and vertically
+        );
+      }
+    }
+  }
+
+
+  Future<void> _updateClassStatus() async {
     DateTime now = DateTime.now();
     runningClass = null;
     upcomingClass = null;
+    // var holidays = await DBHelper.queryData('holidays');
+    // List<String> holidayDates = holidays.map((map) => map['date'] as String).toList();
     // wait until the timetable data is loaded
+    if (today == 'Saturday' || today == 'Sunday' ){//|| holidayDates.any((holidayDate) => today == holidayDate)) {
+      isClassRunning = false;
+      return;
+    }
     if (now
         .isBefore(DateTime.parse("${now.toString().split(" ")[0]} 08:45:00")) && now.isAfter(DateTime.parse("${now.toString().split(" ")[0]} 17:40:00"))) {
       // Before 8:45 AM
@@ -829,6 +971,7 @@ class _AttendancePageState extends State<AttendancePage> {
       }
     }
   }
+
 }
 
 class AttendanceData {
@@ -852,3 +995,102 @@ class AttendanceData {
     required this.mustAttendClasses,
   });
 }
+
+class DayButton extends StatelessWidget {
+  final String dayName;
+  late bool isSelected;
+  final Function(String) onPressed;
+
+  DayButton({required this.dayName, required this.isSelected, required this.onPressed});
+  bool checkIfToday() {
+    DateTime now = DateTime.now();
+    switch (dayName.toLowerCase()) {
+      case 'monday':
+        return now.weekday == DateTime.monday;
+      case 'tuesday':
+        return now.weekday == DateTime.tuesday;
+      case 'wednesday':
+        return now.weekday == DateTime.wednesday;
+      case 'thursday':
+        return now.weekday == DateTime.thursday;
+      case 'friday':
+        return now.weekday == DateTime.friday;
+      default:
+        return false;
+    }
+  }
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: Padding(
+        padding: const EdgeInsets.all(2.5),
+        child: TextButton(
+          onPressed: () {
+            onPressed(dayName);
+            isSelected = true;
+          },
+          style: ButtonStyle(
+            backgroundColor: MaterialStateProperty.all(
+              isSelected ? Colors.grey[350] : Colors
+                  .grey[850], // Background color
+            ),
+          ),
+          child: Text(
+              (checkIfToday() == false) ? dayName.substring(0, 3) : 'Today',
+            style: TextStyle(
+              color: isSelected ? Colors.black : Colors.white, // Text color
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+class ClassItem extends StatelessWidget {
+  final String className;
+  final String classTime;
+  final String location;
+
+  ClassItem({required this.className, required this.classTime, required this.location});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 3),
+      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 3),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(10.0),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.2),
+            spreadRadius: 1,
+            blurRadius: 1,
+          ),
+        ],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: <Widget>[
+          Text(
+            className,
+            style: const TextStyle(
+              fontSize: 14,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          const SizedBox(height: 2),
+          Text(
+            '$classTime  |  $location', // Concatenate classTime and location
+            style: TextStyle(
+              fontSize: 12,
+              color: Colors.grey[600],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+

@@ -27,7 +27,7 @@ DEBUG = True
 import socket
 hostname = socket.gethostname()
 ip_address = socket.gethostbyname(hostname)
-ALLOWED_HOSTS = [ip_address, '127.0.0.1', 'localhost']
+ALLOWED_HOSTS = [ip_address, '127.0.0.1', 'localhost', '0.0.0.0']
 
 
 # Application definition

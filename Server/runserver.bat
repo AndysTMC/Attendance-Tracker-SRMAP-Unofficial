@@ -28,7 +28,7 @@ for /f "tokens=2 delims=:" %%i in ('ipconfig ^| findstr "IPv4 Address"') do set 
 set IP=!IP:~1!
 
 echo Starting Django development server on %IP%...
-python manage.py runserver %IP%:8000
+python manage.py runserver 0.0.0.0:8000
 
 echo Server started. Press Ctrl+C to quit.
 pause >nul
