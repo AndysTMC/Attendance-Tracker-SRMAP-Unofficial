@@ -85,15 +85,15 @@ https://github.com/AndysTMC/Attendance-Tracker-SRMAP/assets/93911806/fc8091b8-24
   <li>Click on the Refresh icon inside the application whenever needed to update your attendance</li>
 </ul>
 
-<img src="https://github.com/AndysTMC/Attendance-Tracker-SRMAP/assets/93911806/05c08375-b308-4380-89b9-a487281964f2" height="230" alt="WindowsAuthInterface">
+<img src="https://github.com/AndysTMC/Attendance-Tracker-SRMAP/assets/93911806/d6deb6c7-f4ca-4082-823f-f146910b0ef6" height="230" alt="WindowsAuthInterface">
 
-<img src="https://github.com/AndysTMC/Attendance-Tracker-SRMAP/assets/93911806/cde540a3-17a4-4529-80c2-eb1fbdf8450c" height="230" alt="WindowsAttendanceInterface">
+<img src="https://github.com/AndysTMC/Attendance-Tracker-SRMAP/assets/93911806/a2301e30-d61e-4421-8f21-5ff193447c9e" height="230" alt="WindowsAttendanceInterface">
 
-<img src="https://github.com/AndysTMC/Attendance-Tracker-SRMAP/assets/93911806/0fd9023e-a0bb-42a9-8c4b-1c975e986f01" height="230" alt="WindowsDetailsInterface">
+<img src="https://github.com/AndysTMC/Attendance-Tracker-SRMAP/assets/93911806/f33e400a-5edb-4f2d-9a3c-990e21a8d442" height="230" alt="WindowsDetailsInterface">
 
-<img src="https://github.com/AndysTMC/Attendance-Tracker-SRMAP/assets/93911806/372af8f7-e13d-44c6-84d7-21bc4706b330" height="230" alt="WindowsScheduleInterface1">
+<img src="https://github.com/AndysTMC/Attendance-Tracker-SRMAP/assets/93911806/6edaef7a-2ae1-4e40-8246-e3233860d976" height="230" alt="WindowsScheduleInterface1">
 
-<img src="https://github.com/AndysTMC/Attendance-Tracker-SRMAP/assets/93911806/610de613-93e5-4e0e-b071-a2d4ed942aaf" height="230" alt="WindowsScheduleInterface2">
+<img src="https://github.com/AndysTMC/Attendance-Tracker-SRMAP/assets/93911806/34bb72a4-e66f-44bf-bab8-42d76ff120f7" height="230" alt="WindowsScheduleInterface2">
 
-<img src="https://github.com/AndysTMC/Attendance-Tracker-SRMAP/assets/93911806/7438e265-e72c-4b4c-9ba6-1fc027673ab3" height="230" alt="WindowsScheduleInterface3">
+<img src="https://github.com/AndysTMC/Attendance-Tracker-SRMAP/assets/93911806/c339bf9f-4d7f-47e2-8854-9fbb3d2e3155" height="230" alt="WindowsScheduleInterface3">
 
