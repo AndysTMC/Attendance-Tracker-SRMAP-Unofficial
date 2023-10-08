@@ -20,7 +20,7 @@ Before you can get started with the Attendance Tracker project, there are severa
 <b>Android Studio</b>: Android Studio is essential for Flutter development, as it provides the Android Emulator and other tools. You can download and install Android Studio from the <a href="https://developer.android.com/studio">official Android Studio website</a>.
 
 <h2>Getting Started (Installation)</h2>
-https://github.com/AndysTMC/Attendance-Tracker-SRMAP/blob/15d135bd6438a5937661107f342eb606606a2dc9/Installation%20and%20Pictures/Installation.mp4
+[Click here to watch the installation video](https://github.com/AndysTMC/Attendance-Tracker-SRMAP/blob/15d135bd6438a5937661107f342eb606606a2dc9/Installation%20and%20Pictures/Installation.mp4)
 Follow these steps to install and set up the Attendance Tracker project on your local machine: (Ensure that the prerequisites are fulfilled)
 <ul>
   <li><b>Clone the Repository</b>: Start by cloning the project's repository to your local machine. Open your terminal or command prompt and execute the following command, replacing <repository_url> with the actual URL of your project's repository:<br><code>git clone https://github.com/AndysTMC/Attendance-Tracker-SRMAP.git</code></li>
