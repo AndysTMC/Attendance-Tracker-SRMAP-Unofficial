@@ -5,7 +5,7 @@
 <h2>Target Audience</h2>
 This project is intended for:<br><br>
 <b>(Student) Developers</b>: Those looking to enhance their skills by working with real-world technologies, including Django, Selenium, Tesseract OCR, and Flutter.<br>
-<b>Students</b>: Instructors seeking an effective way to manage attendance in their courses.<br><br>
+<b>Students</b>: Students seeking an effective way to manage attendance in their courses.<br><br>
 Overall, this project demonstrates using automation and optical character recognition to simplify attendance tracking. It's a great learning project for student developers.
 <h2>Prerequisites</h2>
 Before you can get started with the Attendance Tracker project, there are several prerequisites and dependencies you'll need to have in place. Please ensure that you have the following tools and software installed:<br><br>
