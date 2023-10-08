@@ -53,7 +53,10 @@ Follow these steps to install and set up the Attendance Tracker project on your 
 <h2>Usage</h2>
 Follow these instructions to effectively use the Attendance Tracker:
 <h3>Server</h3>
-<ul><li>Click on the <em>runserver.bat</em> file in located at <code>Path/to/AttendanceTracker/server/</code> of the cloned repository on your machine to run the server.</li>
+
+https://github.com/AndysTMC/Attendance-Tracker-SRMAP/assets/93911806/fc8091b8-24d3-49f6-bcf3-e9d62ba29d61
+
+<ul><li>Click on the <em>runserver.bat</em> file in located at <code>Path/to/Attendance-Tracker-SRMAP/Server/</code> of the cloned repository on your machine to run the server.</li>
   <br>NOTE: You cannot update or get into the flutter application unless the server is turned on
 </ul>
 <h3>Flutter Application</h3>
