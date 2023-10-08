@@ -25,11 +25,27 @@ https://github.com/AndysTMC/Attendance-Tracker-SRMAP/assets/93911806/1292a287-56
 
 Follow these steps to install and set up the Attendance Tracker project on your local machine: (Ensure that the prerequisites are fulfilled)
 <ul>
-  <li><b>Clone the Repository</b>: Start by cloning the project's repository to your local machine. Open your terminal or command prompt and execute the following command, replacing <repository_url> with the actual URL of your project's repository:<br><code>git clone https://github.com/AndysTMC/Attendance-Tracker-SRMAP.git</code></li>
-  <li><b>Navigate to the Project Directory</b>: Change your working directory to the project's root folder:<br><code>cd Attendance-Tracker-SRMAP</code></li>
-  <li><strong>Installing the Tesseract Library</strong>: Download and install the <a href="https://github.com/AndysTMC/Attendance-Tracker-SRMAP/blob/main/Applications/Android/Attendance%20Tracker.apk">Tesseract Executable</a>. During installation, specify the path to the <em>path/to/Attendance-Tracker-SRMAP/Server/lib/</em> folder.</li>
-  <li><b>Install Python Packages</b>: Navigate to the server folder of the project and install the required Python packages by running 'install_requirements.bat' file</li>
-  <li><b>Install Flutter Dependencies and Build Application(for developers)</b>: Navigate to the app folder:<br><code>cd Path/to/Attendance-Tracker-SRMAP/Source</code><br>Install the flutter dependencies<br><code>flutter pub get</code><br>(If you're building application for android) Connect your mobile device to your PC and enable USB Debugging. Once connected, you can build the flutter application in two ways <ul><li>Click the 'RUN' button in your integrated development environment (IDE)</li><li>Alternatively, use the command:</li><code>flutter run</code></ul>
+  <li><b>Clone the Repository</b>: Start by cloning the project's repository to your local machine. Open your terminal or command prompt and execute the following command, replacing <repository_url> with the actual URL of your project's repository:<br><br>
+    
+    git clone https://github.com/AndysTMC/Attendance-Tracker-SRMAP.git
+  </li>
+  <li><b>Navigate to the Project Directory</b>: Change your working directory to the project's root folder:<br><br>
+    
+    cd Attendance-Tracker-SRMAP
+  </li>
+  <li><strong>Installing the Tesseract Library</strong>: Download and install the <a href="https://github.com/AndysTMC/Attendance-Tracker-SRMAP/blob/main/Applications/Android/Attendance%20Tracker.apk">Tesseract Executable</a>. During installation, specify the path to the <code>path/to/Attendance-Tracker-SRMAP/Server/lib/</code> folder.</li>
+  <li><b>Install Python Packages</b>: <br>Navigate to the server folder of the project and install the required Python packages by running <em>install_requirements.bat</em> file</li>
+  <li><b>Install Flutter Dependencies and Build Application(for developers)</b>:<br><br>
+     Navigate to the app folder:<br><br>
+    
+        cd Path/to/Attendance-Tracker-SRMAP/Source
+  Install the flutter dependencies<br>
+  
+        flutter pub get
+  (If you're building application for android) Connect your mobile device to your PC and enable USB Debugging. Once connected, you can build the flutter application in two ways <ul><li>Click the 'RUN' button in your integrated development environment (IDE)</li><li>Alternatively, use the command:</li>
+  
+    flutter run
+  </ul>
 <br>NOTE: It is advisable to prioritize either the Android or Windows platform at this time, as the application has not undergone testing on alternative platforms.</li>
   <li><b>Install Android Platform Application(for students)</b>: Install the <a href="https://github.com/AndysTMC/Attendance-Tracker-SRMAP/tree/b2ea074ccf4ed70806a12ee58a8be6ff89779a00/Applications/Android">Attendance Tracker Android Application</a></li>
   <li><b>Install Widnows Platform Application(for students)</b>: Install the <a href="https://github.com/AndysTMC/Attendance-Tracker-SRMAP/blob/b2ea074ccf4ed70806a12ee58a8be6ff89779a00/Applications/Windows/Attendance%20Tracker.zip">Attendance Tracker Windows Application</a></li>
@@ -37,7 +53,7 @@ Follow these steps to install and set up the Attendance Tracker project on your 
 <h2>Usage</h2>
 Follow these instructions to effectively use the Attendance Tracker:
 <h3>Server</h3>
-<ul><li>Click on the 'runserver.bat' file in located at 'Path/to/AttendanceTracker/server/' of the cloned repository on your machine to run the server.</li>
+<ul><li>Click on the <em>runserver.bat</em> file in located at <code>Path/to/AttendanceTracker/server/</code> of the cloned repository on your machine to run the server.</li>
   <br>NOTE: You cannot update or get into the flutter application unless the server is turned on
 </ul>
 <h3>Flutter Application</h3>
