@@ -48,7 +48,7 @@ Follow these steps to install and set up the Attendance Tracker project on your 
   </ul>
 <br>NOTE: It is advisable to prioritize either the Android or Windows platform at this time, as the application has not undergone testing on alternative platforms.</li>
   <li><b>Install Android Platform Application(for students)</b>: Install the <a href="https://github.com/AndysTMC/Attendance-Tracker-SRMAP/tree/b2ea074ccf4ed70806a12ee58a8be6ff89779a00/Applications/Android">Attendance Tracker Android Application</a></li>
-  <li><b>Install Widnows Platform Application(for students)</b>: Install the <a href="https://github.com/AndysTMC/Attendance-Tracker-SRMAP/blob/b2ea074ccf4ed70806a12ee58a8be6ff89779a00/Applications/Windows/Attendance%20Tracker.zip">Attendance Tracker Windows Application</a></li>
+  <li><b>Install Widnows Platform Application(for students)</b>: Install the <a href="https://github.com/AndysTMC/Attendance-Tracker-SRMAP/blob/1eacdf424c63c2be3150379be0fc88ef83eafca5/Applications/Windows/Attendance%20Tracker.zip">Attendance Tracker Windows Application</a></li>
 </ul>
 <h2>Usage</h2>
 Follow these instructions to effectively use the Attendance Tracker:
