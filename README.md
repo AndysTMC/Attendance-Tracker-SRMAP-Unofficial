@@ -1,5 +1,5 @@
 **<h1><img src="https://github.com/AndysTMC/Attendance-Tracker-SRMAP/blob/222bb0104c3460f86d30b8ec818fb33ce3fc987f/Source/android/app/src/main/res/mipmap-hdpi/ic_launcher_round.png" style="width:38px; height:38px;translate: -5px 7px;">Attendance Tracker SRMAP</h1>**
-<p>https://github.com/AndysTMC/AttendanceTracker</p>
+<p>https://github.com/AndysTMC/Attendance-Tracker-SRMAP</p>
 <h2>Description</h2>
 </p>The Attendance Tracker is a specialized tool created for educational purposes, specifically tailored to streamline attendance monitoring for students. It's designed for those with knowledge of GitHub repository usage and offers a unique opportunity for student developers to gain practical experience with a range of technologies.
 <h2>Target Audience</h2>
