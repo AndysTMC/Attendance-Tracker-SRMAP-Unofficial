@@ -49,6 +49,14 @@ Follow these instructions to effectively use the Attendance Tracker:
   <li>That's it. Enjoy the application.</li>
   <li>Scan the QR code by clicking on the QR scanner icon inside the application whenever needed to update your attendance</li>
 </ul>
+
+<img src="https://github.com/AndysTMC/Attendance-Tracker-SRMAP/assets/93911806/38410673-2d70-4eca-8fd5-3d8b52005fb7" width="135" alt="AndroidAuthInterface">
+<img src="https://github.com/AndysTMC/Attendance-Tracker-SRMAP/assets/93911806/fd1f3bf2-a685-4a89-977f-37100d916379" width="135" alt="AndroidAttendanceInterface">
+<img src="https://github.com/AndysTMC/Attendance-Tracker-SRMAP/assets/93911806/45e3a3af-bbb0-49c6-aac2-d14f5a891e1c" width="135" alt="AndroidDetailsInterface">
+<img src="https://github.com/AndysTMC/Attendance-Tracker-SRMAP/assets/93911806/ef16ac60-936f-4bee-a010-adf96a799c21" width="135" alt="AndroidScheduleInterface1">
+<img src="https://github.com/AndysTMC/Attendance-Tracker-SRMAP/assets/93911806/75e56727-02f0-4d11-9a98-2d873a40a13b" width="135" alt="AndroidScheduleInterface2">
+<img src="https://github.com/AndysTMC/Attendance-Tracker-SRMAP/assets/93911806/c9eff63f-c124-4bd3-b883-0893d21c4254" width="135" alt="AndroidScheduleInterface3">
+
 <h4>On Windows</h4>
 <ul>
   <li>Open the application</li>
@@ -57,3 +65,16 @@ Follow these instructions to effectively use the Attendance Tracker:
   <li>That's it. Enjoy the application.</li>
   <li>Click on the Refresh icon inside the application whenever needed to update your attendance</li>
 </ul>
+
+<img src="https://github.com/AndysTMC/Attendance-Tracker-SRMAP/assets/93911806/05c08375-b308-4380-89b9-a487281964f2" height="230" alt="WindowsAuthInterface">
+
+<img src="https://github.com/AndysTMC/Attendance-Tracker-SRMAP/assets/93911806/cde540a3-17a4-4529-80c2-eb1fbdf8450c" height="230" alt="WindowsAttendanceInterface">
+
+<img src="https://github.com/AndysTMC/Attendance-Tracker-SRMAP/assets/93911806/0fd9023e-a0bb-42a9-8c4b-1c975e986f01" height="230" alt="WindowsDetailsInterface">
+
+<img src="https://github.com/AndysTMC/Attendance-Tracker-SRMAP/assets/93911806/372af8f7-e13d-44c6-84d7-21bc4706b330" height="230" alt="WindowsScheduleInterface1">
+
+<img src="https://github.com/AndysTMC/Attendance-Tracker-SRMAP/assets/93911806/610de613-93e5-4e0e-b071-a2d4ed942aaf" height="230" alt="WindowsScheduleInterface2">
+
+<img src="https://github.com/AndysTMC/Attendance-Tracker-SRMAP/assets/93911806/7438e265-e72c-4b4c-9ba6-1fc027673ab3" height="230" alt="WindowsScheduleInterface3">
+
