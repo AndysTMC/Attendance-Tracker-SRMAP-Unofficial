@@ -11,7 +11,7 @@ Overall, this project demonstrates using automation and optical character recogn
 Before you can get started with the Attendance Tracker project, there are several prerequisites and dependencies you'll need to have in place. Please ensure that you have the following tools and software installed:<br><br>
 <b>Python</b>: The project relies on Python for various components.
 <ul>
-  <li>Make sure you have Python (version 11) installed on your system.</li>
+  <li>Make sure you have Python (version >= 3.10) installed on your system.</li>
   <li>You can download it from the <a href="https://www.python.org/downloads/">official Python website.</a></li>
 </ul>
 <b>Git</b>: To use or work with the project's source code and collaborate with others, make sure you have Git installed. You can download it from the <a href="https://git-scm.com/downloads">official Git website</a>.<br>
