@@ -1,11 +1,11 @@
-**<h1><img src="https://github.com/AndysTMC/Attendance-Tracker-SRMAP/blob/75cb3a0cbe25c4a8ea972830f38d5fa2c5566346/app/android/app/src/main/res/mipmap-hdpi/ic_launcher_round.png" style="width:38px; height:38px;translate: -5px 7px;">Attendance Tracker</h1>**
-<p>https://github.com/AndysTMC/AttendanceTracker</p>
+**<h1><img src="https://github.com/AndysTMC/Attendance-Tracker-SRMAP/blob/222bb0104c3460f86d30b8ec818fb33ce3fc987f/Source/android/app/src/main/res/mipmap-hdpi/ic_launcher_round.png" style="width:38px; height:38px;translate: -5px 7px;">Attendance Tracker SRMAP</h1>**
+<p>https://github.com/AndysTMC/Attendance-Tracker-SRMAP</p>
 <h2>Description</h2>
 </p>The Attendance Tracker is a specialized tool created for educational purposes, specifically tailored to streamline attendance monitoring for students. It's designed for those with knowledge of GitHub repository usage and offers a unique opportunity for student developers to gain practical experience with a range of technologies.
 <h2>Target Audience</h2>
 This project is intended for:<br><br>
 <b>(Student) Developers</b>: Those looking to enhance their skills by working with real-world technologies, including Django, Selenium, Tesseract OCR, and Flutter.<br>
-<b>Students</b>: Instructors seeking an effective way to manage attendance in their courses.<br><br>
+<b>Students</b>: Students seeking an effective way to manage attendance in their courses.<br><br>
 Overall, this project demonstrates using automation and optical character recognition to simplify attendance tracking. It's a great learning project for student developers.
 <h2>Prerequisites</h2>
 Before you can get started with the Attendance Tracker project, there are several prerequisites and dependencies you'll need to have in place. Please ensure that you have the following tools and software installed:<br><br>
