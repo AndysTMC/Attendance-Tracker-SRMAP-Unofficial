@@ -23,6 +23,10 @@ Future<void> main() async {
     WidgetsFlutterBinding.ensureInitialized();
   }
   DBHelper.database;
+  if (await DBHelper.isEmpty()) {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setBool('isAuthenticated', false);
+  }
   // define a global navigatorKey to access navigator without context
   runApp(MaterialApp(
     navigatorKey: navigatorKey,

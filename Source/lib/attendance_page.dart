@@ -81,6 +81,7 @@ class _AttendancePageState extends State<AttendancePage> {
       _currentIndex = index;
       if (index == 2) {
         selectedDay = today;
+        _timer?.cancel();
         _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
           setState(() {
             _updateClassStatus();

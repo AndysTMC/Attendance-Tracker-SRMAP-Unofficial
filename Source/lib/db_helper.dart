@@ -239,6 +239,14 @@ class DBHelper {
     });
   }
 
+  static Future<bool> isEmpty() async {
+    final db = await database;
+    final miscTableExists = (await db.rawQuery("PRAGMA table_info(misc)")).isEmpty;
+    if (miscTableExists) {
+      return true;
+    }
+    return false;
+  }
   static Future<void> clearAllDataInAllTables() async {
     final db = await database;
     final miscTableExists = (await db.rawQuery("PRAGMA table_info(misc)")).isNotEmpty;
