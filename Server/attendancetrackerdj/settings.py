@@ -11,10 +11,10 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
@@ -24,11 +24,22 @@ SECRET_KEY = 'django-insecure-75&-1h3x-ecoso)swatc_883hxa6)&m%j$kc_xd3$b!^1hyf!y
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-import socket
-hostname = socket.gethostname()
-ip_address = socket.gethostbyname(hostname)
-ALLOWED_HOSTS = [ip_address, '127.0.0.1', 'localhost', '0.0.0.0']
 
+current_file_path = os.path.realpath('__file__')
+server_path = os.path.dirname(os.path.abspath(current_file_path))
+ip_address_path = server_path + '\\ip_address.txt'
+ip_address = ""
+try:
+    with open(ip_address_path, "r") as file:
+        ip_address = file.readline().strip()
+    if ip_address == "" or ip_address == None:
+        print("No IP address found in the file.")
+except FileNotFoundError:
+    print("File not found. Make sure 'ip_address.txt' exists.")
+except Exception as e:
+    print("An error occurred:", str(e))
+
+ALLOWED_HOSTS = [ip_address, '127.0.0.1', 'localhost', '0.0.0.0']
 
 # Application definition
 
@@ -77,7 +88,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'attendancetrackerdj.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
@@ -87,7 +97,6 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
@@ -107,7 +116,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
@@ -118,7 +126,6 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/

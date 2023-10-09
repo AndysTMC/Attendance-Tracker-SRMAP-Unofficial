@@ -26,6 +26,8 @@ echo Virtual environment activated.
 REM Get the local IP address
 for /f "tokens=2 delims=:" %%i in ('ipconfig ^| findstr "IPv4 Address"') do set IP=%%i
 set IP=!IP:~1!
+@echo off
+echo %IP% > ip_address.txt
 
 echo Starting Django development server on %IP%...
 python manage.py runserver 0.0.0.0:8000
