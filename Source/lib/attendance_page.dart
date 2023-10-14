@@ -856,7 +856,7 @@ class _AttendancePageState extends State<AttendancePage> {
                       timetableDataList[dayNumber - 1][i]
                           .startTime)} - ${DateFormat('hh:mm a').format(
                       timetableDataList[dayNumber - 1][i].endTime)}',
-                  location: timetableDataList[1][i].sessionRoom,
+                  location: timetableDataList[dayNumber - 1][i].sessionRoom,
                 ),
           ),
         );
