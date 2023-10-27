@@ -862,7 +862,7 @@ class _AttendancePageState extends State<AttendancePage> {
         );
       } else {
         return Container(
-            child: const Text('..NOTHING TO SHOW HERE..', style: TextStyle(fontSize: 20, color: Colors.black54, fontWeight: FontWeight.w500), textAlign: TextAlign.center)
+            child: const Text('..DONE FOR THE DAY..', style: TextStyle(fontSize: 20, color: Colors.black54, fontWeight: FontWeight.w500), textAlign: TextAlign.center)
           // place it at the center of the screen along horizontally and vertically
         );
       }

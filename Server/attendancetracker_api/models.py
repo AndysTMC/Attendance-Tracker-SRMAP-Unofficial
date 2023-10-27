@@ -1,4 +1,5 @@
 import glob
+import re
 import time
 import os
 from PIL import Image
@@ -233,7 +234,14 @@ class WebActions:
                 schedule_subjects = []
                 for row in rows[2:]:
                     cells = row.find_elements(By.TAG_NAME, 'td')
-                    schedule_subjects.append([cell.text.strip() for cell in cells[1:]])
+                    subjects = []
+                    for cell in cells[1:]:
+                        match = re.search(r'[A-Z]{2,}\s\d{3}[A-Z]?', cell.text.strip())
+                        if match:
+                            subjects.append(match.group(0))
+                        else:
+                            subjects.append("NA")
+                    schedule_subjects.append(subjects)
                 print("Log: Successfully fetched timetable data")
             except Exception:
                 raise Exception("Log: Couldn't find requested data in timetable table")
@@ -246,8 +254,18 @@ class WebActions:
                     subject_name = cells[1].text.strip()
                     ltpc = cells[2].text.strip()
                     teacher_name = cells[3].text.strip()
-                    classroom_name = cells[4].text.strip()
-                    student_subjects[subject_code] = [subject_name, ltpc, teacher_name, classroom_name]
+                    matches = re.findall(r'[A-Z]\s*\d{3}(?:\s*\(lab\))?', cells[4].text.strip())
+                    if len(matches) > 0:
+                        if len(matches) == 1:
+                            classrooms = matches[0]
+                        else:
+                            classrooms = "(" + matches[0]
+                            for i in range(1, len(matches)):
+                                classrooms += " | " + matches[i]
+                            classrooms += ")"
+                    else:
+                        classrooms = "NA"
+                    student_subjects[subject_code] = [subject_name, ltpc, teacher_name, classrooms]
                     # print the data in a formatted way
                     # print(subject_code + " " + subject_name + " " + ltpc + " " + teacher_name + " " + classroom_name)
             except Exception:

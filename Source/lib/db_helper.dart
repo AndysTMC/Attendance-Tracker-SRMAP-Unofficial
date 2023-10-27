@@ -83,29 +83,30 @@ class DBHelper {
       var scheduleSubjects, var subjectsInfo) async {
     for (var day in scheduleDays) {
       for (var timing in scheduleTimings) {
-        String cellData = scheduleSubjects[scheduleDays.indexOf(day)]
-        [scheduleTimings.indexOf(timing)];
-        if (cellData == "") {
+
+        // if (cellData.contains(")")) {
+        //   // must start with a letter
+        //   if (cellData.startsWith("(")) {
+        //     continue;
+        //   }
+        //   var subjectData = scheduleSubjects[scheduleDays.indexOf(day)]
+        //   [scheduleTimings.indexOf(timing)]
+        //       .toString()
+        //       .split("(");
+        //   subjectCode = subjectData[0];
+        //   sessionRoom = subjectData[1].split(")")[0];
+        // } else {
+        //   subjectCode =
+        //   scheduleSubjects[scheduleDays.indexOf(day)][scheduleTimings.indexOf(timing)];
+        //   sessionRoom = subjectsInfo[subjectCode][3];
+        // }
+        late String subjectCode = scheduleSubjects[scheduleDays.indexOf(day)][scheduleTimings.indexOf(timing)];
+        if (subjectCode == "NA") {
           continue;
         }
-        late String subjectCode;
-        late String sessionRoom;
-        if (cellData.contains(")")) {
-          // must start with a letter
-          if (cellData.startsWith("(")) {
-            continue;
-          }
-          var subjectData = scheduleSubjects[scheduleDays.indexOf(day)]
-          [scheduleTimings.indexOf(timing)]
-              .toString()
-              .split("(");
-          subjectCode = subjectData[0];
-          sessionRoom = subjectData[1].split(")")[0];
-        } else {
-          subjectCode =
-          scheduleSubjects[scheduleDays.indexOf(day)][scheduleTimings.indexOf(timing)];
-          sessionRoom = subjectsInfo[subjectCode][3];
-        }
+        print(subjectCode);
+        print(subjectsInfo[subjectCode]);
+        late String sessionRoom = subjectsInfo[subjectCode][3];
         String getTimes(String time) {
           int value = int.parse(time.split(":")[0]);
           if (value >= 9 && value <= 12) {
@@ -114,9 +115,10 @@ class DBHelper {
             return "${value + 12}:${time.split(":")[1]}";
           }
         }
-        var subjectName = subjectsInfo[subjectCode][0];
-        var ltpc = subjectsInfo[subjectCode][1];
-        var facultyName = subjectsInfo[subjectCode][2];
+        String subjectName = subjectsInfo[subjectCode][0];
+        String ltpc = subjectsInfo[subjectCode][1];
+        String facultyName = subjectsInfo[subjectCode][2];
+
         await DBHelper.insertData('time_table', {
           'day': day,
           'start_time': "${getTimes(timing.split(' To ')[0])}:00",
