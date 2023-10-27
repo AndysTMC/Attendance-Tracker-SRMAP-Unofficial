@@ -15,7 +15,7 @@ import psutil
 
 class Counter:
     def __init__(self, max_count):
-        self.count = 0
+        self.count = 1
         self.max_count = max_count
 
     def increment(self):
@@ -91,7 +91,7 @@ class WebActions:
             'password': password
         }
         self.first_time_login = first_time_login
-        self.max_count = 2
+        self.max_count = 1
 
     def create_site_instance(self):
         try:
