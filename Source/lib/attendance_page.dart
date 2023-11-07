@@ -552,51 +552,80 @@ class _AttendancePageState extends State<AttendancePage> {
                 )
               else if (_currentIndex == 1)
                 Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 20),
+                  padding: const EdgeInsets.symmetric(vertical: 15),
                   child: Center(
                     child: SizedBox(
-                      width: MediaQuery.of(context).size.width * 0.8,
+                      width: MediaQuery.of(context).size.width * 0.85,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          const Row(
-                            children: [
-                              Expanded(
-                                flex: 2,
-                                child: Text(
-                                  'Subject',
-                                  style: TextStyle(fontWeight: FontWeight.bold),
-                                  textAlign: TextAlign.center,
+                          Container(
+                            padding: const EdgeInsets.symmetric(vertical: 8),
+                            decoration: BoxDecoration(
+                              color: Colors.grey[850],
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            child: const Row(
+                              children: [
+                                Expanded(
+                                  flex: 1,
+                                  child: SizedBox(),
                                 ),
-                              ),
-                              Expanded(
-                                flex: 2,
-                                child: Text(
-                                  'Status',
-                                  style: TextStyle(fontWeight: FontWeight.bold),
-                                  textAlign: TextAlign.center,
+                                Expanded(
+                                  flex: 10,
+                                  child: Text(
+                                    'Subject',
+                                    style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+                                    textAlign: TextAlign.center,
+                                  ),
                                 ),
-                              ),
-                              Expanded(
-                                flex: 2,
-                                child: Text(
-                                  'Leaves Applicable',
-                                  style: TextStyle(fontWeight: FontWeight.bold),
-                                  textAlign: TextAlign.center,
+                                Expanded(
+                                  flex: 1,
+                                  child: SizedBox(),
                                 ),
-                              ),
-                              Expanded(
-                                flex: 2,
-                                child: Text(
-                                  'Must Attend',
-                                  style: TextStyle(fontWeight: FontWeight.bold),
-                                  textAlign: TextAlign.center,
+                                Expanded(
+                                  flex: 10,
+                                  child: Text(
+                                    'Status',
+                                    style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+                                    textAlign: TextAlign.center,
+                                  ),
                                 ),
-                              ),
-                            ],
+                                Expanded(
+                                  flex: 1,
+                                  child: SizedBox(),
+                                ),
+                                Expanded(
+                                  flex: 10,
+                                  child: Text(
+                                    'Leaves Appl.',
+                                    style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ),
+                                Expanded(
+                                  flex: 1,
+                                  child: SizedBox(),
+                                ),
+                                Expanded(
+                                  flex: 10,
+                                  child: Text(
+                                    'Must Attend',
+                                    style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ),
+                                Expanded(
+                                  flex: 1,
+                                  child: SizedBox(),
+                                ),
+                              ],
+                            ),
                           ),
-                          const Divider(),
+                          const Divider(
+                            height: 20,
+                          ),
                           // Add a divider line for better separation
                           ...attendanceDataList.map((data) {
                             bool isSafe = data.percentage >= 75.0;
@@ -622,9 +651,9 @@ class _AttendancePageState extends State<AttendancePage> {
                                           textAlign: TextAlign.center,
                                           style: TextStyle(
                                               color: isSafe
-                                                  ? Colors.blueGrey
-                                                  : Colors.brown[400],
-                                              fontSize: 13),
+                                                  ? Colors.black87
+                                                  : Colors.black54,
+                                              fontSize: 13, fontWeight: isSafe ? FontWeight.bold: FontWeight.w300),
                                         ),
                                       ),
                                       Expanded(
@@ -638,7 +667,7 @@ class _AttendancePageState extends State<AttendancePage> {
                                       Expanded(
                                         flex: 2,
                                         child: Text(
-                                          (data.mustAttendClasses != -1 ) ? data.mustAttendClasses.toString() : 'N/A',
+                                          (data.mustAttendClasses != 999999 ) ? data.mustAttendClasses.toString() : 'N/A',
                                           textAlign: TextAlign.center,
                                           style: const TextStyle(fontSize: 13),
                                         ),
@@ -712,25 +741,32 @@ class _AttendancePageState extends State<AttendancePage> {
                           padding: const EdgeInsets.all(8.0),
                           child: Container(
                             width: MediaQuery.of(context).size.width,
-                            foregroundDecoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(8),
-                              border: Border.fromBorderSide(
-                                  BorderSide(color: Colors.grey.shade400)),
-                            ),
-                            padding: const EdgeInsets.all(16),
+                            padding: const EdgeInsets.all(20),
                             decoration: BoxDecoration(
-                              color: Colors.grey.shade100,
-                              borderRadius: BorderRadius.circular(8),
+                              color: Colors.grey.shade50,
+                              borderRadius: const BorderRadius.vertical(
+                                top: Radius.circular(8),
+                              ),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey.withOpacity(0.3),
+                                  spreadRadius: 1,
+                                  blurRadius: 1,
+                                  offset: const Offset(0, -5),
+                                ),
+                              ],
                             ),
-                            child: const Column(
+
+                            child:  const Column(
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
                                 SizedBox(height: 10),
                                 Text(
-                                  '-NO SESSIONS SCHEDULED-',
+                                  '-NO SESSIONS SCHEDULED FOR NOW-',
                                   style: TextStyle(
                                     fontSize: 18,
                                     fontWeight: FontWeight.bold,
+                                    color: Colors.black,
                                   ),
                                 ),
                                 SizedBox(height: 10),
@@ -826,7 +862,7 @@ class _AttendancePageState extends State<AttendancePage> {
     }
     DateTime now = DateTime.now();
     for (var holiday in holidays) {
-      final holidayName = holiday['name'] ?? 'a holiday';
+      final holidayName = holiday['name'] ?? 'A HOLIDAY';
       if (holiday['date'] == DateFormat('yyyy-MM-dd').format(now)) {
         return Center(
           child: Text(
@@ -838,10 +874,7 @@ class _AttendancePageState extends State<AttendancePage> {
       }
     }
     if (dayName == 'Saturday' || dayName == 'Sunday') {
-      return Container(
-          child: const Text('..NOTHING TO SHOW HERE..', style: TextStyle(fontSize: 20, color: Colors.black54, fontWeight: FontWeight.w500), textAlign: TextAlign.center)
-        // place it at the center of the screen along horizontally and vertically
-      );
+      return const Text('..ITS A HOLIDAY..', style: TextStyle(fontSize: 20, color: Colors.black54, fontWeight: FontWeight.w500), textAlign: TextAlign.center);
     }
     if (dayName != today) {
       if (timetableDataList.isNotEmpty) {
@@ -861,10 +894,7 @@ class _AttendancePageState extends State<AttendancePage> {
           ),
         );
       } else {
-        return Container(
-            child: const Text('..DONE FOR THE DAY..', style: TextStyle(fontSize: 20, color: Colors.black54, fontWeight: FontWeight.w500), textAlign: TextAlign.center)
-          // place it at the center of the screen along horizontally and vertically
-        );
+        return const Text('..NOTHING TO SHOW HERE..', style: TextStyle(fontSize: 20, color: Colors.black54, fontWeight: FontWeight.w500), textAlign: TextAlign.center);
       }
     } else {
       DateTime currentTime = DateTime.now();
@@ -885,7 +915,7 @@ class _AttendancePageState extends State<AttendancePage> {
         );
       } else {
         return Container(
-          child: const Text('..NOTHING TO SHOW HERE..', style: TextStyle(fontSize: 20, color: Colors.black54, fontWeight: FontWeight.w500), textAlign: TextAlign.center)
+          child: const Text('..DONE FOR THE DAY..', style: TextStyle(fontSize: 20, color: Colors.black54, fontWeight: FontWeight.w500), textAlign: TextAlign.center)
           // place it at the center of the screen along horizontally and vertically
         );
       }
@@ -968,6 +998,9 @@ class _AttendancePageState extends State<AttendancePage> {
     final now = DateTime.now();
     if (lastUpdated != null) {
       if (lastUpdated != DateFormat('yyyy-MM-dd').format(now).toString()) {
+        setState(() {
+          isLoading = true;
+        });
         await fetchAttendanceDataFromApi(context);
       }
     }
@@ -1061,13 +1094,13 @@ class ClassItem extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 3),
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 3),
       decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(10.0),
+        color: Colors.grey.shade100,
+        borderRadius: BorderRadius.circular(8),
         boxShadow: [
           BoxShadow(
-            color: Colors.grey.withOpacity(0.2),
-            spreadRadius: 1,
-            blurRadius: 1,
+            color: Colors.grey.shade300,
+            blurRadius: 2,
+            offset: const Offset(0, 1),
           ),
         ],
       ),

@@ -69,8 +69,7 @@ class DBHelper {
         'id INTEGER PRIMARY KEY, '
         'name TEXT, '
         'date TEXT '
-        ')'
-    );
+        ')');
   }
 
   static Future<void> insertHolidaysData(List<dynamic> holidays) async {
@@ -83,7 +82,6 @@ class DBHelper {
       var scheduleSubjects, var subjectsInfo) async {
     for (var day in scheduleDays) {
       for (var timing in scheduleTimings) {
-
         // if (cellData.contains(")")) {
         //   // must start with a letter
         //   if (cellData.startsWith("(")) {
@@ -100,7 +98,8 @@ class DBHelper {
         //   scheduleSubjects[scheduleDays.indexOf(day)][scheduleTimings.indexOf(timing)];
         //   sessionRoom = subjectsInfo[subjectCode][3];
         // }
-        late String subjectCode = scheduleSubjects[scheduleDays.indexOf(day)][scheduleTimings.indexOf(timing)];
+        late String subjectCode = scheduleSubjects[scheduleDays.indexOf(day)]
+            [scheduleTimings.indexOf(timing)];
         if (subjectCode == "NA") {
           continue;
         }
@@ -115,6 +114,7 @@ class DBHelper {
             return "${value + 12}:${time.split(":")[1]}";
           }
         }
+
         String subjectName = subjectsInfo[subjectCode][0];
         String ltpc = subjectsInfo[subjectCode][1];
         String facultyName = subjectsInfo[subjectCode][2];
@@ -167,7 +167,8 @@ class DBHelper {
     await db.execute('DELETE FROM attendance');
     var miscData = await DBHelper.queryData('misc');
     var holidays = await DBHelper.queryData('holidays');
-    List<String> holidayDates = holidays.map((map) => map['date'] as String).toList();
+    List<String> holidayDates =
+        holidays.map((map) => map['date'] as String).toList();
     // Assign semEndDate with the end date of the semester
     var semEndDateStr = miscData[4]['value'];
     var semStartDateStr = miscData[3]['value'];
@@ -187,13 +188,14 @@ class DBHelper {
     }
     attendancedata.forEach((key, value) async {
       late int mustAttend;
-      if(value[3] < 75) {
+      if (value[3] < 75) {
         mustAttend = ((0.75 * value[1] - value[0]) / 0.25).ceil();
         var daysCount = mustAttend;
-        for (var i = DateTime.now(); i.isBefore(
-            DateTime.parse(semEndDateStr.toString()));
-        i = i.add(const Duration(days: 1))) {
-          if (holidayDates.any((holidayDate) => DateFormat('yyyy-mm-dd').format(i) == holidayDate)) {
+        for (var i = DateTime.now();
+            i.isBefore(DateTime.parse(semEndDateStr.toString()));
+            i = i.add(const Duration(days: 1))) {
+          if (holidayDates.any((holidayDate) =>
+              DateFormat('yyyy-mm-dd').format(i) == holidayDate)) {
             continue;
           }
           var day = DateFormat('EEEE').format(i);
@@ -207,14 +209,18 @@ class DBHelper {
           }
         }
         if (daysCount > 0) {
-          mustAttend = -1;
+          // assign with infinity if the student can't attend the required classes
+          mustAttend = 999999;
         }
       } else {
         mustAttend = 0;
       }
       var totalScheduleClasses = 0;
-      for (var i = DateTime.parse(semStartDateStr.toString()); i.isBefore(DateTime.parse(semEndDateStr)); i = i.add(const Duration(days: 1))) {
-        if (holidayDates.any((holidayDate) => DateFormat('yyyy-mm-dd').format(i) == holidayDate)) {
+      for (var i = DateTime.parse(semStartDateStr.toString());
+          i.isBefore(DateTime.parse(semEndDateStr));
+          i = i.add(const Duration(days: 1))) {
+        if (holidayDates.any((holidayDate) =>
+            DateFormat('yyyy-mm-dd').format(i) == holidayDate)) {
           continue;
         }
         var day = DateFormat('EEEE').format(i);
@@ -225,7 +231,8 @@ class DBHelper {
         }
       }
       var remainingClasses = totalScheduleClasses - value[1];
-      int leavesApplicable = value[0] + remainingClasses - (0.75 * totalScheduleClasses).ceil();
+      int leavesApplicable =
+          value[0] + remainingClasses - (0.75 * totalScheduleClasses).ceil();
       if (leavesApplicable % 2 == 1) {
         leavesApplicable -= 1;
       }
@@ -243,18 +250,24 @@ class DBHelper {
 
   static Future<bool> isEmpty() async {
     final db = await database;
-    final miscTableExists = (await db.rawQuery("PRAGMA table_info(misc)")).isEmpty;
+    final miscTableExists =
+        (await db.rawQuery("PRAGMA table_info(misc)")).isEmpty;
     if (miscTableExists) {
       return true;
     }
     return false;
   }
+
   static Future<void> clearAllDataInAllTables() async {
     final db = await database;
-    final miscTableExists = (await db.rawQuery("PRAGMA table_info(misc)")).isNotEmpty;
-    final timeTableExists = (await db.rawQuery("PRAGMA table_info(time_table)")).isNotEmpty;
-    final attendanceTableExists = (await db.rawQuery("PRAGMA table_info(attendance)")).isNotEmpty;
-    final holidaysTableExists = (await db.rawQuery("PRAGMA table_info(holidays)")).isNotEmpty;
+    final miscTableExists =
+        (await db.rawQuery("PRAGMA table_info(misc)")).isNotEmpty;
+    final timeTableExists =
+        (await db.rawQuery("PRAGMA table_info(time_table)")).isNotEmpty;
+    final attendanceTableExists =
+        (await db.rawQuery("PRAGMA table_info(attendance)")).isNotEmpty;
+    final holidaysTableExists =
+        (await db.rawQuery("PRAGMA table_info(holidays)")).isNotEmpty;
     if (miscTableExists) {
       await db.execute('DELETE FROM misc');
     }
