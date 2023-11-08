@@ -77,20 +77,22 @@ class _AttendancePageState extends State<AttendancePage> {
   }
 
   void onTabTapped(int index) {
-    setState(() {
-      _currentIndex = index;
-      if (index == 2) {
-        selectedDay = today;
-        _timer?.cancel();
-        _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
-          setState(() {
-            _updateClassStatus();
+    if (index != _currentIndex) {
+      setState(() {
+        _currentIndex = index;
+        if (index == 2) {
+          selectedDay = today;
+          _timer?.cancel();
+          _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+            setState(() {
+              _updateClassStatus();
+            });
           });
-        });
-      } else {
-        _timer?.cancel();
-      }
-    });
+        } else {
+          _timer?.cancel();
+        }
+      });
+    }
   }
 
   Future<void> fetchAttendanceDataFromDatabase() async {
@@ -263,15 +265,21 @@ class _AttendancePageState extends State<AttendancePage> {
     return Padding(
       padding: const EdgeInsets.all(9.0),
       child: Container(
-        foregroundDecoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(8),
-          border:
-          Border.fromBorderSide(BorderSide(color: Colors.grey.shade400)),
-        ),
-        padding: const EdgeInsets.all(16),
+        width: MediaQuery.of(context).size.width,
+        padding: const EdgeInsets.all(20),
         decoration: BoxDecoration(
-          color: Colors.grey.shade100,
-          borderRadius: BorderRadius.circular(8),
+          color: Colors.grey.shade50,
+          borderRadius: const BorderRadius.vertical(
+            top: Radius.circular(8),
+          ),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.7),
+              spreadRadius: 0.7,
+              blurRadius: 0,
+              offset: const Offset(0, -5),
+            ),
+          ],
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -309,15 +317,21 @@ class _AttendancePageState extends State<AttendancePage> {
     return Padding(
       padding: const EdgeInsets.all(9.0),
       child: Container(
-        foregroundDecoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(8),
-          border:
-          Border.fromBorderSide(BorderSide(color: Colors.grey.shade400)),
-        ),
-        padding: const EdgeInsets.all(16),
+        width: MediaQuery.of(context).size.width,
+        padding: const EdgeInsets.all(20),
         decoration: BoxDecoration(
-          color: Colors.grey.shade100,
-          borderRadius: BorderRadius.circular(8),
+          color: Colors.grey.shade50,
+          borderRadius: const BorderRadius.vertical(
+            top: Radius.circular(8),
+          ),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.7),
+              spreadRadius: 0.7,
+              blurRadius: 0,
+              offset: const Offset(0, -5),
+            ),
+          ],
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -749,9 +763,9 @@ class _AttendancePageState extends State<AttendancePage> {
                               ),
                               boxShadow: [
                                 BoxShadow(
-                                  color: Colors.grey.withOpacity(0.3),
-                                  spreadRadius: 1,
-                                  blurRadius: 1,
+                                  color: Colors.grey.withOpacity(0.7),
+                                  spreadRadius: 0.7,
+                                  blurRadius: 0,
                                   offset: const Offset(0, -5),
                                 ),
                               ],
