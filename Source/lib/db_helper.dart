@@ -103,8 +103,6 @@ class DBHelper {
         if (subjectCode == "NA") {
           continue;
         }
-        print(subjectCode);
-        print(subjectsInfo[subjectCode]);
         late String sessionRoom = subjectsInfo[subjectCode][3];
         String getTimes(String time) {
           int value = int.parse(time.split(":")[0]);
