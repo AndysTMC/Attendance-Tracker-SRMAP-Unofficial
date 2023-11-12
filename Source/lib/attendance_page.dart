@@ -951,7 +951,7 @@ class _AttendancePageState extends State<AttendancePage> {
     DateTime now = DateTime.now();
     for (var holiday in holidays) {
       final holidayName = holiday['name'] ?? 'A HOLIDAY';
-      if (holiday['date'] == DateFormat('yyyy-MM-dd').format(now)) {
+      if (holiday['date'] == DateFormat('yyyy-MM-dd').format(now) && dayName == today) {
         return Column(
           children: [
             SizedBox(

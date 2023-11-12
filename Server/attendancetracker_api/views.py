@@ -11,14 +11,15 @@ def get_attendance_view(request):
         student_dob = request.POST.get('student_dob')
         student_first_time_login = bool(request.POST.get('first_time_login'))
         attendant = WebActions(student_id, student_dob, student_first_time_login)
-        holidays = [['Independence Day', '2023-08-15'],
-                    ['Sri Krishna Ashtami', '2023-09-07'],
-                    ['Vinayaka Chavithi', '2023-09-19'],
-                    ['Eid Milanun Nabi', '2023-09-28'],
-                    ['Mahatma Gandhi Jayanthi', '2023-10-02'],
-                    ['Vijayadasami', '2023-10-24'],
-                    ['Karthika Purnima', '2023-11-27'],
-                    ['Christmas', '2023-12-25']]
+        holidays = [['INDEPENDENCE DAY', '2023-08-15'],
+                    ['SRI KRISHNA ASHTAMI', '2023-09-07'],
+                    ['VINAYAKA CHAVITHI', '2023-09-19'],
+                    ['EID MILANUN NABI', '2023-09-28'],
+                    ['MAHATMA GANDHI JAYANTHI', '2023-10-02'],
+                    ['VIJAYADASAMI', '2023-10-24'],
+                    ['DIWALI', '2023-11-13'],
+                    ['KARTHIKA PURNIMA', '2023-11-27'],
+                    ['CHIRSTMAS', '2023-12-25']]
         try:
             name, attendance_tracker, timetable = attendant.get_data()
             attendance = attendance_tracker.attendances
