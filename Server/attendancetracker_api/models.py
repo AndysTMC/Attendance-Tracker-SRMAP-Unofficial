@@ -272,7 +272,7 @@ class WebActions:
                 raise Exception("Log: Couldn't find requested data in subject table")
         except Exception as e:
             raise e
-        return {"sem_period": ["2023-08-07", "2023-12-05"],
+        return {"sem_period": ["2024-01-17", "2024-05-15"],
                 "time_schedule": {"schedule_days": schedule_days, 'schedule_timings': schedule_timings,
                                   'schedule_subjects': schedule_subjects}, "subjects_info": student_subjects}
 
