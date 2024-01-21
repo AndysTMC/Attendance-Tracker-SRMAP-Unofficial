@@ -1,6 +1,6 @@
 from django.http import JsonResponse, HttpResponse
 from django.views.decorators.csrf import csrf_exempt
-from .models import WebActions
+from .tool import WebActions
 
 
 @csrf_exempt
