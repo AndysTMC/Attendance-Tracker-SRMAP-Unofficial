@@ -19,17 +19,27 @@ if %errorlevel% neq 0 (
 
 echo Please install all the requirements by running 'install_requirements.bat' script before running this script (Ignore if already done)
 
+set "outputFile=ipv4_addrs.txt"
+
+del "%outputFile%" 2>nul
+
+set "ipAddresses="
+
+for /f "tokens=2 delims=:" %%a in ('ipconfig ^| find "IPv4 Address"') do (
+    set "ipAddress=%%a"
+    set "ipAddress=!ipAddress:~1!"
+    set "ipAddresses=!ipAddresses!,!ipAddress!"
+)
+
+set "ipAddresses=!ipAddresses:~1!"
+
+echo %ipAddresses%>>"%outputFile%"
+
 echo Activating your virtual environment...
 call .\venv\Scripts\activate
 echo Virtual environment activated.
 
-REM Get the local IP address
-for /f "tokens=2 delims=:" %%i in ('ipconfig ^| findstr "IPv4 Address"') do set IP=%%i
-set IP=!IP:~1!
-@echo off
-echo %IP% > ip_address.txt
-
-echo Starting Django development server on %IP%...
+echo Starting Django server..
 python manage.py runserver 0.0.0.0:8000
 
 echo Server started. Press Ctrl+C to quit.

@@ -21,5 +21,6 @@ from attendancetracker_api import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('attendance/', views.get_attendance_view, name='attendance'),
+    path('checking/', views.checking, name='checking'),
     path('send_email/', views.send_email_view, name='send_email'),
 ]

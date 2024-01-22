@@ -207,7 +207,6 @@ class DBHelper {
           }
         }
         if (daysCount > 0) {
-          // assign with infinity if the student can't attend the required classes
           mustAttend = 999999;
         }
       } else {
@@ -228,9 +227,11 @@ class DBHelper {
           }
         }
       }
-      var remainingClasses = totalScheduleClasses - value[1];
+      var totalOccuredClasses = value[1];
+      var presentClasses = value[0];
+      var remainingClasses = totalScheduleClasses - totalOccuredClasses;
       int leavesApplicable =
-          value[0] + remainingClasses - (0.75 * totalScheduleClasses).ceil();
+          presentClasses + remainingClasses - (0.75 * totalScheduleClasses).ceil();
       if (leavesApplicable % 2 == 1) {
         leavesApplicable -= 1;
       }

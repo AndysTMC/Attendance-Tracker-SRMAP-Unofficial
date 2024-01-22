@@ -1,17 +1,18 @@
 import 'dart:async';
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:intl/intl.dart';
 import 'dart:ui';
+import 'auth_page.dart';
 import 'db_helper.dart';
 import 'ip_scanner.dart';
 import 'main.dart';
 import 'package:network_info_plus/network_info_plus.dart';
-import 'auth_page.dart';
 
 class TimetableData {
   final String subject;
@@ -153,11 +154,7 @@ class _AttendancePageState extends State<AttendancePage> {
   }
 
   Future<String> getIPAddress(BuildContext context) async {
-    final result = await Navigator.push(
-      context,
-      MaterialPageRoute(
-          builder: (context) => const IPScanner(), maintainState: true),
-    );
+    final result = await navigatorKey.currentState!.push(MaterialPageRoute(builder: (context) => const IPScanner(), maintainState: true));
     if (result != null) {
       print("result: $result");
       return result;
@@ -235,17 +232,13 @@ class _AttendancePageState extends State<AttendancePage> {
   }
 
   void navigateToAuthPage(BuildContext context) {
-    navigatorKey.currentState?.pushReplacement(
-      MaterialPageRoute(
-        builder: (context) => AuthPage(),
-        maintainState: true,
-      ),
-    );
+    navigatorKey.currentState!.pushReplacement(MaterialPageRoute(builder: (context) => AuthPage()));
   }
 
   void logout(BuildContext context) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setBool('isAuthenticated', false);
+    await DBHelper.clearAllDataInAllTables();
     // Navigate back to the authentication page
     navigateToAuthPage(context);
   }
@@ -273,6 +266,10 @@ class _AttendancePageState extends State<AttendancePage> {
   void dispose() {
     // Don't forget to cancel the timer when the widget is disposed
     _timer?.cancel();
+    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+      statusBarColor: Colors.transparent, // Make the status bar transparent or set a different color
+      statusBarIconBrightness: Brightness.dark, // Use light icons on the status bar
+    ));
     super.dispose();
   }
 
@@ -417,6 +414,12 @@ class _AttendancePageState extends State<AttendancePage> {
 
   @override
   Widget build(BuildContext context) {
+    setState(() {
+      SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+        statusBarColor: Colors.transparent, // Make the status bar transparent or set a different color
+        statusBarIconBrightness: Brightness.dark, // Use light icons on the status bar
+      ));
+    });
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -437,6 +440,8 @@ class _AttendancePageState extends State<AttendancePage> {
                 '  WELCOME, ${name.split(" ")[0].toUpperCase()} 👋',
                 style: const TextStyle(
                   fontSize: 17,
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
             ),
@@ -489,7 +494,8 @@ class _AttendancePageState extends State<AttendancePage> {
                     Center(
                       child: SizedBox(
                         width: MediaQuery.of(context).size.width * 0.8,
-                        height: MediaQuery.of(context).size.height * 0.5,
+                        // height is multiplied by number of subjects to make the chart height dynamic
+                        height: MediaQuery.of(context).size.height * attendanceDataList.length * 0.6 / 10,
                         child: SfCartesianChart(
                           plotAreaBorderWidth: 0,
                           plotAreaBackgroundColor: Colors.transparent,
@@ -519,6 +525,7 @@ class _AttendancePageState extends State<AttendancePage> {
                             canShowMarker: false,
                             format: 'point.x : point.y',
                           ),
+                          // height of each bar is fixed
                           series: <ChartSeries>[
                             BarSeries<AttendanceData, String>(
                               borderRadius: BorderRadius.circular(5),
@@ -886,14 +893,17 @@ class _AttendancePageState extends State<AttendancePage> {
               SizedBox(
                 height: MediaQuery.of(context).size.height * 0.8,
                 child: const Center(
-                  child: CircularProgressIndicator(color: Colors.blue),
+                  child: CircularProgressIndicator(color: Colors.blueGrey),
                 ),
               ),
           ],
         ),
       ),
       bottomNavigationBar: BottomNavigationBar(
-        selectedLabelStyle: const TextStyle(fontWeight: FontWeight.bold),
+        selectedLabelStyle: const TextStyle(fontWeight: FontWeight.bold, color: Colors.black54),
+        selectedItemColor: Colors.black,
+        selectedIconTheme: const IconThemeData(color: Colors.black),
+        backgroundColor: Colors.grey.shade100,
         currentIndex: _currentIndex,
         onTap: onTabTapped,
         items: const [
@@ -1137,16 +1147,16 @@ class _AttendancePageState extends State<AttendancePage> {
         (item) => item['key'] == 'lastUpdated',
         orElse: () => {})['value'];
     final database = await DBHelper.database;
-    await database.rawUpdate('UPDATE misc SET value = ? WHERE key = ?', [
-      DateFormat('yyyy-MM-dd').format(DateTime.now()).toString(),
-      'lastUpdated'
-    ]);
     final now = DateTime.now();
     if (lastUpdated != null) {
       if (lastUpdated != DateFormat('yyyy-MM-dd').format(now).toString()) {
         setState(() {
           isLoading = true;
         });
+        await database.rawUpdate('UPDATE misc SET value = ? WHERE key = ?', [
+          DateFormat('yyyy-MM-dd').format(DateTime.now()).toString(),
+          'lastUpdated'
+        ]);
         await fetchAttendanceDataFromApi(context);
       }
     }

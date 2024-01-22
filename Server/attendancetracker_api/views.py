@@ -5,6 +5,8 @@ from .tool import WebActions
 
 @csrf_exempt
 def get_attendance_view(request):
+    if request.method == 'GET':
+        return HttpResponse("Invalid request method")
     if request.method == 'POST':
         # Assuming the request contains student_id and student_name
         student_id = request.POST.get('student_id')
@@ -32,6 +34,9 @@ def get_attendance_view(request):
     else:
         return HttpResponse("Invalid request method")
 
+@csrf_exempt
+def checking(request):
+    return HttpResponse()
 
 @csrf_exempt
 def send_email_view(request):

@@ -3,6 +3,7 @@ import re
 import time
 import os
 from PIL import Image
+from selenium.webdriver.chrome.service import Service
 from seleniumwire import webdriver
 from selenium.webdriver.common.by import By
 import smtplib
@@ -95,7 +96,7 @@ class WebActions:
     def create_site_instance(self):
         try:
             target_exe = "chromedriver.exe"
-            driver_path = glob.glob(os.path.join(os.getcwd() + '\lib', '**', target_exe), recursive=True)[0]
+            driver_path = glob.glob(os.path.join(os.getcwd() + '\\lib', '**', target_exe), recursive=True)[0]
             chrome_options = webdriver.ChromeOptions()
             chrome_options.add_argument("--no-sandbox")
             chrome_options.add_argument(
@@ -104,7 +105,8 @@ class WebActions:
             chrome_options.add_argument("--user-data-dir=/path/to/user-profile-directory")
             chrome_options.add_argument("--headless")
             chrome_options.add_argument('window-size=1920x1080')
-            self.driver = webdriver.Chrome(executable_path=driver_path, options=chrome_options)
+            service = Service(executable_path=driver_path)
+            self.driver = webdriver.Chrome(service=service, options=chrome_options)
             self.driver.scopes = ['.*']
             self.driver.request_interceptor = lambda r: r
         except Exception as e:
@@ -451,7 +453,7 @@ class Utils:
         import os
         try:
             target_exe = "tesseract.exe"
-            tesseract_path = glob.glob(os.path.join(os.getcwd() + '\lib', '**', target_exe), recursive=True)[0]
+            tesseract_path = glob.glob(os.path.join(os.getcwd() + '\\lib', '**', target_exe), recursive=True)[0]
             pytesseract.pytesseract.tesseract_cmd = tesseract_path
             captcha_text = pytesseract.image_to_string(captcha_image) + ""
             if captcha_text == "":

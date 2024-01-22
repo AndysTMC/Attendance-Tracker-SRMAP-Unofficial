@@ -9,6 +9,7 @@ import 'package:sqflite_common_ffi_web/sqflite_ffi_web.dart';
 import 'db_helper.dart';
 import 'auth_page.dart';
 import 'attendance_page.dart';
+import 'package:flutter/services.dart';
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
@@ -21,6 +22,12 @@ Future<void> main() async {
   }
   if (kIsWeb || Platform.isAndroid) {
     WidgetsFlutterBinding.ensureInitialized();
+  }
+  if(Platform.isAndroid) {
+    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+      statusBarColor: Colors.transparent, // Make the status bar transparent or set a different color
+      statusBarIconBrightness: Brightness.dark, // Use light icons on the status bar
+    ));
   }
   DBHelper.database;
   if (await DBHelper.isEmpty()) {

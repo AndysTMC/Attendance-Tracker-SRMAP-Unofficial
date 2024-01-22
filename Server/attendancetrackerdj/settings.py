@@ -25,21 +25,24 @@ SECRET_KEY = 'django-insecure-75&-1h3x-ecoso)swatc_883hxa6)&m%j$kc_xd3$b!^1hyf!y
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-current_file_path = os.path.realpath('__file__')
-server_path = os.path.dirname(os.path.abspath(current_file_path))
-ip_address_path = server_path + '\\ip_address.txt'
-ip_address = ""
-try:
-    with open(ip_address_path, "r") as file:
-        ip_address = file.readline().strip()
-    if ip_address == "" or ip_address == None:
-        print("No IP address found in the file.")
-except FileNotFoundError:
-    print("File not found. Make sure 'ip_address.txt' exists.")
-except Exception as e:
-    print("An error occurred:", str(e))
+# current_file_path = os.path.realpath('__file__')
+# server_path = os.path.dirname(os.path.abspath(current_file_path))
+# ip_address_path = server_path + '\\ipv4_addrs.txt'
+# ip_address = ""
 
-ALLOWED_HOSTS = [ip_address, '127.0.0.1', 'localhost', '0.0.0.0']
+# try:
+#     with open(ip_address_path, "r") as file:
+#         ip_address = file.readline().strip()
+#     if ip_address == "" or ip_address == None:
+#         print("No IP address found in the file.")
+# except FileNotFoundError:
+#     print("File not found. Make sure 'ip_address.txt' exists.")
+# except Exception as e:
+#     print("An error occurred:", str(e))
+
+# Allow all hosts
+
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 

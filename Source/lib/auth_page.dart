@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:attendance_tracker/ip_scanner.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -11,9 +12,8 @@ import 'dart:ui';
 import 'package:attendance_tracker/db_helper.dart';
 import 'attendance_page.dart';
 import 'package:network_info_plus/network_info_plus.dart';
-import 'package:connectivity_plus/connectivity_plus.dart';
-import 'main.dart';
 
+import 'main.dart';
 class AuthPage extends StatefulWidget {
   AuthPage({Key? key}) : super(key: key);
 
@@ -39,21 +39,28 @@ class _AuthPageState extends State<AuthPage> {
   }
 
   Future<void> navigateToAttendancePage(BuildContext context) async {
-    final result = Navigator.push(context, MaterialPageRoute(builder: (context) => AttendancePage()),);
-
+    navigatorKey.currentState!.pushReplacement(MaterialPageRoute(builder: (context) => AttendancePage(), maintainState: true));
   }
 
   Future<String> getIPAddress(BuildContext context) async {
-    final result = await Navigator.push(context, MaterialPageRoute(builder: (context) => IPScanner(), maintainState: true),);
+    final result = await navigatorKey.currentState!.push(MaterialPageRoute(builder: (context) => const IPScanner(), maintainState: true));
+    setState(() {
+      SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+        statusBarColor: Colors.transparent, // Make the status bar transparent or set a different color
+        statusBarIconBrightness: Brightness.dark, // Use light icons on the status bar
+      ));
+    });
     if (result != null) {
       return result;
-    } else {
-      return '-1';
     }
+    return '-1';
   }
 
 
   void submitForm(BuildContext context) async {
+    if(!_formKey.currentState!.validate()) {
+      return;
+    }
     String? ip = '';
     if (Platform.isAndroid) {
       ip = await getIPAddress(context);
@@ -63,7 +70,7 @@ class _AuthPageState extends State<AuthPage> {
     } else {
       ip = await NetworkInfo().getWifiIP();
     }
-    if (_formKey.currentState!.validate() && ip != '') {
+    if (ip != '') {
       setState(() {
         _isLoading = true;
       });
@@ -169,14 +176,14 @@ class _AuthPageState extends State<AuthPage> {
                       children: [
                         Image.asset(
                           'images/attendance_black.png',
-                          width: 37,
-                          height: 25,
+                          width: 37 * MediaQuery.of(context).size.width/392,
+                          height: 25 * MediaQuery.of(context).size.height/872,
                           fit: BoxFit.cover,
                         ),
-                        const Text(
+                        Text(
                           ' Attendance Tracker',
                           style: TextStyle(
-                            fontSize: 30,
+                            fontSize: 30 * MediaQuery.of(context).size.width/392,
                             fontWeight: FontWeight.bold,
                             textBaseline: TextBaseline.alphabetic,
                           ),
@@ -189,6 +196,8 @@ class _AuthPageState extends State<AuthPage> {
                       onFieldSubmitted: (value) {
                         submitForm(context);
                       },
+                      cursorColor: Colors.black,
+                      cursorOpacityAnimates: true,
                       controller: _regIdController,
                       onTapOutside: (dynamic value) {
                         FocusScope.of(context).requestFocus(FocusNode());
@@ -198,6 +207,13 @@ class _AuthPageState extends State<AuthPage> {
                         labelStyle: TextStyle(
                           color: Colors.black,
                         ),
+                        focusedBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Colors.black,
+                            width: 2,
+                          ),
+                        ),
+
                       ),
                       validator: (String? value) {
                         if (value?.isEmpty ?? true) {
@@ -213,16 +229,26 @@ class _AuthPageState extends State<AuthPage> {
                       onFieldSubmitted: (value) {
                         submitForm(context);
                       },
+                      cursorOpacityAnimates: true,
+                      cursorColor: Colors.black,
                       controller: _passwordController,
                       onTapOutside: (dynamic value) {
                         FocusScope.of(context).requestFocus(FocusNode());
                       },
+
                       decoration: const InputDecoration(
                         labelText: 'Password',
                         labelStyle: TextStyle(
                           color: Colors.black,
                         ),
+                        focusedBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Colors.black,
+                            width: 2,
+                          ),
+                        ),
                       ),
+
                       validator: (String? value) {
                         if (value?.isEmpty ?? true) {
                           return 'Enter Password';
